@@ -9,6 +9,11 @@ const cors = require("cors");
 const postgresDb = require("./src/Model/postgres.index.ts");
 const mongoDb = require("./src/Model/mongo.index.ts");
 
+/** Controller */
+const categoryController = require("./src/domain/Category/CategoryController.ts");
+
+/** Controller */
+
 const app = express();
 const PORT = process.env.PORT || 5002;
 
@@ -22,6 +27,10 @@ app.use(
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
 app.use(cookieParser());
+
+//Controller Inject
+app.use("/category", categoryController);
+//Controller Inject
 
 // DB Connection
 postgresDb.sequelize

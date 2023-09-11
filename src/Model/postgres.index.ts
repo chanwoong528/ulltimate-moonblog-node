@@ -1,8 +1,7 @@
 //@ts-nocheck
 const postgresDbConfig = require("../../config/postgres.config");
-const Sequelize = require("sequelize");
-
-const sequelize = new Sequelize(
+import { Sequelize } from "sequelize";
+export const sequelize = new Sequelize(
   postgresDbConfig.DB,
   postgresDbConfig.USER,
   postgresDbConfig.PASSWORD,
@@ -19,16 +18,18 @@ const sequelize = new Sequelize(
     },
   }
 );
+const blogUser = require("./postgres/blogUser.model")(sequelize, Sequelize);
+// const category = require("./postgres/category.model")(sequelize, Sequelize);
+const category = require("./postgres/category.model");
+export const db = {
+  Sequelize: Sequelize,
+  sequelize,
+  blogUser: blogUser,
+  category: category,
+};
 
-const db = {};
-db.blogUser = require("./postgres/blogUser.model")(sequelize, Sequelize);
-db.category = require("./postgres/category.model")(sequelize, Sequelize);
-
-db.Sequelize = Sequelize;
-db.sequelize = sequelize;
-
-// db.article = require("./ModelObject/article.model.js")(sequelize, Sequelize);
-// db.user = require("./ModelObject/user.model.js")(sequelize, Sequelize);
-// db.category = require("./ModelObject/category.model.js")(sequelize, Sequelize);
-
-module.exports = db;
+Object.keys(db).forEach((model) => {
+  if ("associate" in db[model]) {
+    db[model].associate(db);
+  }
+});
