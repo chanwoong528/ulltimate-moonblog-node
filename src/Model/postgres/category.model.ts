@@ -14,14 +14,27 @@ export const Category = sequelize.define(
       type: Sequelize.STRING,
       require: true,
       allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
     },
     description: {
       type: Sequelize.STRING,
       require: true,
       allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
     },
   },
-  {}
+  {
+    indexes: [
+      {
+        unique: true,
+        fields: ["label"], // Whatever other field you need to make unique
+      },
+    ],
+  }
 );
 
 // module.exports = (sequelize, Sequelize) => {
