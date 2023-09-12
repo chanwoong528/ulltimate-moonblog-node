@@ -1,6 +1,6 @@
 //@ts-nocheck
 import Sequelize from "sequelize";
-import { sequelize } from "../postgres.index.ts";
+import { sequelize } from "../postgres.index";
 
 export const Category = sequelize.define(
   "category",
