@@ -44,4 +44,8 @@ router.post("/", (req, res) => {
     });
 });
 
+router.post("/auth", (req,res)=>{
+  const { loginType, email, pw, name } = req.body;
+})
+
 module.exports = router;

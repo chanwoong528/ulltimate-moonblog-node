@@ -1,14 +1,3 @@
-// {
-//   "compilerOptions": {
-//     "module": "NodeNext",
-//     "moduleResolution": "node",
-//     "baseUrl": "src",
-//     "outDir": "dist",
-//     "sourceMap": true,
-//     "noImplicitAny": true
-//   },
-//   "include": ["src/**/*"]
-// }
 {
   "compilerOptions": {
     "target": "es6", // 어떤 버전으로 컴파일할지 작성
