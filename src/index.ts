@@ -11,7 +11,7 @@ const mongoDb = require("./Model/mongo.index");
 
 /** Controller */
 const categoryController = require("./domain/Category/CategoryController");
-
+const userController = require("./domain/User/UserController");
 /** Controller */
 
 const app = express();
@@ -30,6 +30,7 @@ app.use(cookieParser());
 
 //Controller Inject
 app.use("/category", categoryController);
+app.use("/user", userController);
 //Controller Inject
 
 // DB Connection

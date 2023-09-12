@@ -19,9 +19,9 @@ export const sequelize = new Sequelize(
     },
   }
 );
-const blogUser = require("./postgres/blogUser.model")(sequelize, Sequelize);
-// const category = require("./postgres/category.model")(sequelize, Sequelize);
+const blogUser = require("./postgres/blogUser.model");
 const category = require("./postgres/category.model");
+
 export const db = {
   Sequelize: Sequelize,
   sequelize,
