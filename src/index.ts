@@ -6,11 +6,12 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
-const postgresDb = require("./src/Model/postgres.index.ts");
-const mongoDb = require("./src/Model/mongo.index.ts");
+
+const postgresDb = require("./Model/postgres.index.ts");
+const mongoDb = require("./Model/mongo.index.ts");
 
 /** Controller */
-const categoryController = require("./src/domain/Category/CategoryController.ts");
+const categoryController = require("./domain/Category/CategoryController.ts");
 
 /** Controller */
 

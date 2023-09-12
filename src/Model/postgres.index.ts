@@ -1,6 +1,7 @@
 //@ts-nocheck
-const postgresDbConfig = require("../../config/postgres.config");
+const postgresDbConfig = require("../config/postgres.config");
 import { Sequelize } from "sequelize";
+
 export const sequelize = new Sequelize(
   postgresDbConfig.DB,
   postgresDbConfig.USER,

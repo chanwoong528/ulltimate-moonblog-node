@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const mongoDbConfig = require("../../config/mongo.config");
+const mongoDbConfig = require("../config/mongo.config");
 
 module.exports = async function connectionFactory() {
   try {

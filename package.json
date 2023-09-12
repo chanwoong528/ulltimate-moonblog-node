@@ -2,11 +2,12 @@
   "name": "ultimate-moonblog-express",
   "version": "1.0.0",
   "description": "server for moonblog",
-  "main": "index.ts",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.ts",
-    "dev": "nodemon index.ts"
+    "build": "tsc -p .",
+    "dev": "nodemon"
   },
   "keywords": [
     "server",

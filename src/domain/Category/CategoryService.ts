@@ -1,7 +1,7 @@
+//@ts-nocheck
 import { Category } from "../../Model/postgres/category.model";
 import { CustomError } from "../../utils/exception/CustomError";
 
-//@ts-nocheck
 export const getCates = async (id?: string) => {
   try {
     if (!!id) {
