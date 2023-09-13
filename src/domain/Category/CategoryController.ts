@@ -40,6 +40,10 @@ router.post("/", (req, res) => {
 router.patch("/:categoryId", (req, res) => {
   const { categoryId } = req.params;
   const { label, description } = req.body;
+  if (!!categoryId)
+    return res
+      .status(ERROR_CODE["NotFoundError"].code)
+      .send(ERROR_CODE["NotFoundError"]);
 
   patchCategory(categoryId, label, description)
     .then((result) => {

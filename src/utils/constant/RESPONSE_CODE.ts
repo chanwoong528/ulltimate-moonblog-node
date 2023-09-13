@@ -23,6 +23,13 @@ const RESPONSE_CODE = {
       code: 200,
     };
   },
+  authorized: (data) => {
+    return {
+      message: "Authorized",
+      data,
+      code: 200,
+    };
+  },
 };
 
 export default RESPONSE_CODE;

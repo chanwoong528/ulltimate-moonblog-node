@@ -18,3 +18,19 @@ export const genAccToken = (loginType: string, email: string, role: string) => {
   );
   return accessToken;
 };
+
+export const verifyToken = (token: string) => {
+  const decodedJWT = jwt.verify(
+    token,
+    process.env.JWT_SECRET,
+    (err, decoded) => {
+      if (err) {
+        //TokenExpiredError
+        //JsonWebTokenError
+        return { validity: false, data: err.name };
+      }
+      return { validity: true, data: decoded };
+    }
+  );
+  return decodedJWT;
+};

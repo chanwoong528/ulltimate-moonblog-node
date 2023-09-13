@@ -12,6 +12,10 @@ const mongoDb = require("./Model/mongo.index");
 /** Controller */
 const categoryController = require("./domain/Category/CategoryController");
 const userController = require("./domain/User/UserController");
+const authController = require("./domain/Auth/AuthController");
+
+const postController = require("./domain/Post/PostController");
+const guestbookController = require("./domain/Guestbook/GuestbookController");
 /** Controller */
 
 const app = express();
@@ -31,6 +35,10 @@ app.use(cookieParser());
 //Controller Inject
 app.use("/category", categoryController);
 app.use("/user", userController);
+app.use("/auth", authController);
+
+app.use("/post", postController);
+app.use("/guestbook", guestbookController);
 //Controller Inject
 
 // DB Connection
