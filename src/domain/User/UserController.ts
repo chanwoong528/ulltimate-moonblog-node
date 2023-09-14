@@ -31,14 +31,18 @@ router.post("/", (req, res) => {
   createUser(loginType, email, manipulatePw, name)
     .then((result) => {
       const accessToken = genAccToken(
+        result.id,
         result.loginType,
         result.email,
-        result.role
+        result.role,
+        result.name
       );
       const refreshToken = genRefToken(
+        result.id,
         result.loginType,
         result.email,
-        result.role
+        result.role,
+        result.name
       );
       res.cookie("access_token", accessToken);
       res.cookie("refresh_token", refreshToken);

@@ -1,18 +1,30 @@
 //@ts-nocheck
 import jwt from "jsonwebtoken";
 
-export const genRefToken = (loginType: string, email: string, role: string) => {
+export const genRefToken = (
+  id: string,
+  loginType: string,
+  email: string,
+  role: string,
+  name: string
+) => {
   const refreshToken = jwt.sign(
-    { loginType, email, role },
+    { id, loginType, email, role, name },
     process.env.JWT_SECRET,
     { expiresIn: 60 * 60 * 24 }
   );
   return refreshToken;
 };
 
-export const genAccToken = (loginType: string, email: string, role: string) => {
+export const genAccToken = (
+  id: string,
+  loginType: string,
+  email: string,
+  role: string,
+  name: string
+) => {
   const accessToken = jwt.sign(
-    { loginType, email, role },
+    { id, loginType, email, role, name },
     process.env.JWT_SECRET,
     { expiresIn: 60 * 15 }
   );

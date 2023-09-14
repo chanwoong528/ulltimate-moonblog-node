@@ -33,8 +33,8 @@ router.post("/token", (req, res) => {
       .status(ERROR_CODE[decoded.data].code)
       .send(ERROR_CODE[decoded.data]);
   }
-  const { loginType, email, role } = decoded.data;
-  const newAccessToken = genAccToken(loginType, email, role);
+  const { id, loginType, email, role } = decoded.data;
+  const newAccessToken = genAccToken(id, loginType, email, role);
   res.cookie("access_token", newAccessToken);
   return res
     .status(RESPONSE_CODE["created"]({ loginType, email, role }).code)
@@ -48,14 +48,18 @@ router.post("/", (req, res) => {
   getUsers(undefined, loginType, email, pw)
     .then((result) => {
       const accessToken = genAccToken(
+        result.id,
         result.loginType,
         result.email,
-        result.role
+        result.role,
+        result.name
       );
       const refreshToken = genRefToken(
+        result.id,
         result.loginType,
         result.email,
-        result.role
+        result.role,
+        result.name
       );
       res.cookie("access_token", accessToken);
       res.cookie("refresh_token", refreshToken);

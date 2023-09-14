@@ -15,7 +15,7 @@ const userController = require("./domain/User/UserController");
 const authController = require("./domain/Auth/AuthController");
 
 const postController = require("./domain/Post/PostController");
-const guestbookController = require("./domain/Guestbook/GuestbookController");
+const commentController = require("./domain/Comment/CommentController");
 /** Controller */
 
 const app = express();
@@ -38,7 +38,7 @@ app.use("/user", userController);
 app.use("/auth", authController);
 
 app.use("/post", postController);
-app.use("/guestbook", guestbookController);
+app.use("/guestbook", commentController);
 //Controller Inject
 
 // DB Connection
