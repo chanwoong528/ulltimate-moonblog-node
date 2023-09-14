@@ -8,7 +8,8 @@ export const createPost = async (
   titleEng: string,
   contentEng: string,
   titleKor?: string,
-  contentKor?: string
+  contentKor?: string,
+  tags?: string
 ) => {
   try {
     const existCategory = await Category.findOne({ where: { id: categoryId } });
@@ -21,6 +22,7 @@ export const createPost = async (
       contentEng,
       ...(!!titleKor && { titleKor }),
       ...(!!contentKor && { contentKor }),
+      ...(!!tags && { tags }),
     }).save();
 
     return newPost;
@@ -59,7 +61,8 @@ export const patchPost = async (
   views?: number,
   shareCount?: number,
   likes?: number,
-  dislikes?: number
+  dislikes?: number,
+  tags?: string
 ) => {
   try {
     const updatedPost = await Post.findByIdAndUpdate(
@@ -73,6 +76,7 @@ export const patchPost = async (
         ...(!!shareCount && { shareCount }),
         ...(!!likes && { likes }),
         ...(!!dislikes && { dislikes }),
+        ...(!!tags && { tags }),
         updatedDate: Date.now(),
       }
     );

@@ -13,6 +13,11 @@ const postSchema = new Schema({
   shareCount: { type: Number, default: 0 },
   likes: { type: Number, default: 0 },
   dislikes: { type: Number, default: 0 },
+  tags: {
+    type: String,
+    required: false,
+    // "abc,ABC,Aaa,bBB" format
+  },
 
   createdDate: { type: Date, default: Date.now },
   updatedDate: { type: Date, default: Date.now },
