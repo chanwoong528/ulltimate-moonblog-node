@@ -38,7 +38,7 @@ app.use("/user", userController);
 app.use("/auth", authController);
 
 app.use("/post", postController);
-app.use("/guestbook", commentController);
+app.use("/comment", commentController);
 //Controller Inject
 
 // DB Connection
