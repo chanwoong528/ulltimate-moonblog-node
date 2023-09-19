@@ -18,10 +18,11 @@ const postSchema = new Schema({
     required: false,
     // "abc,ABC,Aaa,bBB" format
   },
-
   createdDate: { type: Date, default: Date.now },
   updatedDate: { type: Date, default: Date.now },
 });
+
+
 
 // module.exports = mongoose.model("Post", postSchema);
 

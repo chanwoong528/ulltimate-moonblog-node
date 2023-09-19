@@ -90,6 +90,21 @@ export const patchComment = async (id: string, type: string) => {
         { new: true }
       );
       return updateCommentDesHate;
+    case COMMENT_PATCH_TYPE.dislikeToLike:
+      const updateDislikeToLike = await Comment.findByIdAndUpdate(
+        { _id: id },
+        { $inc: { dislikes: -1, likes: 1 } },
+        { new: true }
+      );
+      return updateDislikeToLike;
+    case COMMENT_PATCH_TYPE.likeToDislike:
+      const updateLikeToDislike = await Comment.findByIdAndUpdate(
+        { _id: id },
+        { $inc: { likes: -1, dislikes: 1 } },
+        { new: true }
+      );
+      return updateLikeToDislike;
+
     default:
       throw new CustomError("UnsupportedType", "UnsupportedType on patch");
   }

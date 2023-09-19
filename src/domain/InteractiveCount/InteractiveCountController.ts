@@ -11,8 +11,9 @@ import {
 const router = new express.Router();
 
 router.get("/", (req, res) => {
+  //TODO:login middleware
   const { userId, contentId } = req.query;
-  console.log(userId);
+
   getInteractiveCount(userId, contentId)
     .then((result) => {
       return res
@@ -27,7 +28,9 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", (req, res) => {
+  //TODO:login middleware
   const { userId, contentId, contentType, interactiveType } = req.body;
+
   createOrPatchInteractive(userId, contentId, contentType, interactiveType)
     .then((result) => {
       return res
