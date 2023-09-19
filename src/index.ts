@@ -13,6 +13,7 @@ const mongoDb = require("./Model/mongo.index");
 const categoryController = require("./domain/Category/CategoryController");
 const userController = require("./domain/User/UserController");
 const authController = require("./domain/Auth/AuthController");
+const interactiveCountController = require("./domain/InteractiveCount/InteractiveCountController");
 
 const postController = require("./domain/Post/PostController");
 const commentController = require("./domain/Comment/CommentController");
@@ -23,7 +24,7 @@ const PORT = process.env.PORT || 5002;
 
 app.use(
   cors({
-    origin: [],
+    origin: ["http://localhost:3001", "http://localhost:4321"],
     credentials: true,
     methods: ["HEAD", "POST", "PUT", "GET", "PATCH", "DELETE"],
   })
@@ -36,6 +37,7 @@ app.use(cookieParser());
 app.use("/category", categoryController);
 app.use("/user", userController);
 app.use("/auth", authController);
+app.use("/interactive", interactiveCountController);
 
 app.use("/post", postController);
 app.use("/comment", commentController);

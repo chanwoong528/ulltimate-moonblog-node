@@ -52,6 +52,7 @@ router.post("/", (req, res) => {
         .send(RESPONSE_CODE["created"](result));
     })
     .catch((error) => {
+      console.log(error);
       return res
         .status(ERROR_CODE[error.name].code)
         .send(ERROR_CODE[error.name]);
@@ -59,6 +60,7 @@ router.post("/", (req, res) => {
 });
 router.patch("/:userId", (req, res) => {
   const { userId } = req.params;
+
   const {
     loginType,
     pw,
@@ -69,7 +71,7 @@ router.patch("/:userId", (req, res) => {
     marketingConsent,
     privacyConsent,
   } = req.body;
-  if (!!userId)
+  if (!userId)
     return res
       .status(ERROR_CODE["NotFoundError"].code)
       .send(ERROR_CODE["NotFoundError"]);

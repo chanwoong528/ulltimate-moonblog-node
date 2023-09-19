@@ -51,6 +51,11 @@ const ERROR_CODE = {
     errorInstance: "PasswordIncorrectError",
     code: 401,
   },
+  UnsupportedType: {
+    message: "Unsupported Type",
+    errorInstance: "UnsupportedTypeError",
+    code: 422,
+  },
 };
 
 export default ERROR_CODE;

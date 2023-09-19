@@ -12,6 +12,7 @@ export const genRefToken = (
     { id, loginType, email, role, name },
     process.env.JWT_SECRET,
     { expiresIn: 60 * 60 * 24 }
+    // { expiresIn: 1 }
   );
   return refreshToken;
 };
@@ -27,6 +28,7 @@ export const genAccToken = (
     { id, loginType, email, role, name },
     process.env.JWT_SECRET,
     { expiresIn: 60 * 15 }
+    // { expiresIn: 1 * 10 }
   );
   return accessToken;
 };

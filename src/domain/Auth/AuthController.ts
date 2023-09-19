@@ -26,8 +26,9 @@ router.get("/", isLoggedIn, (req, res) => {
 
 //generate Access token based on RefreshToken
 router.post("/token", (req, res) => {
-  const refreshToken = req.cookies.refresh_token;
+  const refreshToken = req.body.refresh_token;
   const decoded = verifyToken(refreshToken);
+
   if (!decoded.validity) {
     return res
       .status(ERROR_CODE[decoded.data].code)
@@ -38,13 +39,12 @@ router.post("/token", (req, res) => {
   res.cookie("access_token", newAccessToken);
   return res
     .status(RESPONSE_CODE["created"]({ loginType, email, role }).code)
-    .send(RESPONSE_CODE["created"]({ loginType, email, role }));
+    .send(RESPONSE_CODE["created"]({ loginType, email, role, newAccessToken }));
 });
 
 //login with [email/pw] or [snsLogin]
 router.post("/", (req, res) => {
   const { loginType, email, pw } = req.body;
-
   getUsers(undefined, loginType, email, pw)
     .then((result) => {
       const accessToken = genAccToken(

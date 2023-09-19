@@ -47,6 +47,11 @@ export const createUser = async (
   name: string
 ) => {
   try {
+    const existingUser = await User.findOne({ where: { email, loginType } });
+    if (!!existingUser) {
+      delete existingUser.dataValues["pw"];
+      return existingUser.dataValues;
+    }
     const newUser = await User.create({
       loginType,
       email,
