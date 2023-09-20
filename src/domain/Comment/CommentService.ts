@@ -53,9 +53,26 @@ export const getGuestbooks = async (id?: string, parentId?: string) => {
     }
     return targetGuestbooks;
   }
-  const firstGuestbooks = await Comment.find({
-    $and: [{ parentId: null }, { postId: null }],
-  });
+  const firstGuestbooks = await Comment.aggregate([
+    {
+      $match: { $and: [{ parentId: null }, { postId: null }] },
+    },
+    {
+      $lookup: {
+        from: "comments",
+        localField: "_id",
+        foreignField: "parentId",
+        as: "childComment",
+        // pipeline: [{ $limit: 1 }],
+      },
+    },
+    {
+      $addFields: {
+        childCount: { $size: "$childComment" },
+      },
+    },
+  ]);
+
   return firstGuestbooks;
 };
 

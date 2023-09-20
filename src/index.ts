@@ -1,6 +1,8 @@
 //@ts-nocheck
-require("dotenv").config({ path: "./env/db.env" });
-require("dotenv").config({ path: "./env/auth.env" });
+
+process.env.NODE_ENV === "dev"
+  ? require("dotenv").config({ path: "./env/dev.env" })
+  : require("dotenv").config({ path: "./env/prod.env" });
 
 const express = require("express");
 const cookieParser = require("cookie-parser");
@@ -20,7 +22,7 @@ const commentController = require("./domain/Comment/CommentController");
 /** Controller */
 
 const app = express();
-const PORT = process.env.PORT || 5002;
+const PORT = process.env.PORT || 6002;
 
 app.use(
   cors({
