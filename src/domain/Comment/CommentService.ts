@@ -14,7 +14,14 @@ export const createGuestbook = async (
     const userData = verifyToken(accessToken);
     const { id, name } = userData.data;
     if (!!parentId) {
-      const parentGuestbook = await getGuestbooks(parentId);
+      const parentGuestbook = Comment.findOneAndUpdate(
+        { id: parentId },
+        {
+          $inc: {
+            childrenCount: 1,
+          },
+        }
+      );
       if (!parentGuestbook)
         throw new CustomError("NotFoundError", "result not found in database");
     }

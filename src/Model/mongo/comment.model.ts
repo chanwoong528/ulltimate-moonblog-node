@@ -7,10 +7,9 @@ const commentSchema = new Schema({
   content: { type: String, required: true },
   likes: { type: Number, default: 0 },
   dislikes: { type: Number, default: 0 },
-
+  childrenCount: { type: Number, default: 0 },
   createdDate: { type: Date, default: Date.now },
   updatedDate: { type: Date, default: Date.now },
-
   postId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Post",
