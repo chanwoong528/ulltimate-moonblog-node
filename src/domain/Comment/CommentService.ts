@@ -14,7 +14,7 @@ export const createGuestbook = async (
     const userData = verifyToken(accessToken);
     const { id, name } = userData.data;
     if (!!parentId) {
-      const parentGuestbook = Comment.findOneAndUpdate(
+      const parentGuestbook = await Comment.findOneAndUpdate(
         { id: parentId },
         {
           $inc: {
