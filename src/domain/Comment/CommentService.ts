@@ -15,7 +15,7 @@ export const createGuestbook = async (
     const { id, name } = userData.data;
     if (!!parentId) {
       const parentGuestbook = await Comment.findOneAndUpdate(
-        { id: parentId },
+        { _id: parentId },
         {
           $inc: {
             childrenCount: 1,
@@ -60,25 +60,28 @@ export const getGuestbooks = async (id?: string, parentId?: string) => {
     }
     return targetGuestbooks;
   }
-  const firstGuestbooks = await Comment.aggregate([
-    {
-      $match: { $and: [{ parentId: null }, { postId: null }] },
-    },
-    {
-      $lookup: {
-        from: "comments",
-        localField: "_id",
-        foreignField: "parentId",
-        as: "childComment",
-        // pipeline: [{ $limit: 1 }],
-      },
-    },
-    {
-      $addFields: {
-        childCount: { $size: "$childComment" },
-      },
-    },
-  ]);
+  const firstGuestbooks = await Comment.find({
+    $and: [{ parentId: null }, { postId: null }],
+  });
+  // await Comment.aggregate([
+  //   {
+  //     $match: { $and: [{ parentId: null }, { postId: null }] },
+  //   },
+  //   {
+  //     $lookup: {
+  //       from: "comments",
+  //       localField: "_id",
+  //       foreignField: "parentId",
+  //       as: "childComment",
+  //       // pipeline: [{ $limit: 1 }],
+  //     },
+  //   },
+  //   {
+  //     $addFields: {
+  //       childCount: { $size: "$childComment" },
+  //     },
+  //   },
+  // ]);
 
   return firstGuestbooks;
 };

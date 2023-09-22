@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
 const mongoDbConfig = require("../config/mongo.config");
-mongoose.set("toJSON", {
-  virtuals: true,
-  transform: (doc, converted) => {
-    delete converted._id;
-  },
-});
+// mongoose.set("toJSON", {
+//   virtuals: true,
+//   transform: (doc, converted) => {
+//     delete converted._id;
+//   },
+// });
 module.exports = async function connectionFactory() {
   try {
     const conn = await mongoose.connect(
