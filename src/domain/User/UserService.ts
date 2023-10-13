@@ -26,7 +26,6 @@ export const getUsers = async (
         if (!pwResult)
           throw new CustomError("PasswordIncorrectError", "Password incorrect");
       }
-
       return oneUser.dataValues;
     } else {
       const allUsers = (await User.findAll()).map(

@@ -22,11 +22,11 @@ const commentController = require("./domain/Comment/CommentController");
 /** Controller */
 
 const app = express();
-const PORT = process.env.PORT || 6002;
+const PORT = process.env.PORT || 5002;
 
 app.use(
   cors({
-    origin: ["http://localhost:3001", "http://localhost:4321"],
+    origin: ["http://localhost:6002"],
     credentials: true,
     methods: ["HEAD", "POST", "PUT", "GET", "PATCH", "DELETE"],
   })
