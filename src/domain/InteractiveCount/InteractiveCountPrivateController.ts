@@ -27,21 +27,21 @@ router.get("/", (req, res) => {
     });
 });
 
-// router.post("/", (req, res) => {
-//   //TODO:login middleware
-//   const { userId, contentId, contentType, interactiveType } = req.body;
-
-//   createOrPatchInteractive(userId, contentId, contentType, interactiveType)
-//     .then((result) => {
-//       return res
-//         .status(RESPONSE_CODE["retrieve"](result).code)
-//         .send(RESPONSE_CODE["retrieve"](result));
-//     })
-//     .catch((error) => {
-//       return res
-//         .status(ERROR_CODE[error.name].code)
-//         .send(ERROR_CODE[error.name]);
-//     });
-// });
+router.post("/", (req, res) => {
+  //TODO:login middleware
+  const { userId, contentId, contentType, interactiveType } = req.body;
+  console.log("!!!", userId, contentId, contentType, interactiveType);
+  createOrPatchInteractive(userId, contentId, contentType, interactiveType)
+    .then((result) => {
+      return res
+        .status(RESPONSE_CODE["retrieve"](result).code)
+        .send(RESPONSE_CODE["retrieve"](result));
+    })
+    .catch((error) => {
+      return res
+        .status(ERROR_CODE[error.name].code)
+        .send(ERROR_CODE[error.name]);
+    });
+});
 
 module.exports = router;

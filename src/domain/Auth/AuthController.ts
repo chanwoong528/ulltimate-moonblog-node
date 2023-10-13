@@ -45,6 +45,7 @@ router.post("/token", (req, res) => {
 //login with [email/pw] or [snsLogin]
 router.post("/", (req, res) => {
   const { loginType, email, pw } = req.body;
+  console.log("@@ ", loginType, email, pw);
   getUsers(undefined, loginType, email, pw)
     .then((result) => {
       const accessToken = genAccToken(

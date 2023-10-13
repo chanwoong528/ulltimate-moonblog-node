@@ -11,3 +11,8 @@ export const CONTENT_TYPE = {
   post: "POST",
   comment: "COMMENT",
 };
+
+export const API_BASE_URL_TYPE = {
+  privateBaseUrl: "/auth-api",
+  publicBaseUrl: "",
+};
