@@ -12,6 +12,34 @@ const postgresDb = require("./Model/postgres.index");
 const mongoDb = require("./Model/mongo.index");
 
 const app = express();
+
+const { Server } = require("socket.io");
+
+const socketServer = require("http").createServer(handler);
+const io = new Server(socketServer);
+function handler(req, res) {
+  res.writeHead(200).end({});
+}
+io.on("connection", (socket) => {
+  socket.on("private message", (anotherSocketId, msg) => {
+    console.log(anotherSocketId);
+    socket.to(anotherSocketId).emit("private message", socket.id, msg);
+  });
+});
+socketServer.listen(7002, (err) => {
+  if (err) {
+    console.log(`Unable to run Server on ${7002}=> ${err}`);
+  } else {
+    console.log(`Server Up: ${7002}`);
+  }
+});
+
+// const io = require("socket.io")(server, {
+//   cors: {
+//     origin: [process.env.PROXY_SERVER_URL],
+//   },
+// });
+
 const PORT = process.env.PORT || 5002;
 
 import { API_BASE_URL_TYPE } from "./utils/constant/DATA_TYPES";
@@ -76,8 +104,11 @@ app.use(
   API_BASE_URL_TYPE.privateBaseUrl + "/interactive",
   require("./domain/InteractiveCount/InteractiveCountPrivateController")
 );
+app.use(
+  API_BASE_URL_TYPE.privateBaseUrl + "/chat",
+  require("./domain/Chat/ChatPrivateController")
+);
 /**private Api */
-
 //-- Controller Inject --
 
 // DB Connection
