@@ -44,6 +44,8 @@ export const createGuestbook = async (
 };
 
 export const getGuestbooks = async (id?: string, parentId?: string) => {
+  console.log("@@ ", id, parentId);
+
   if (!!id) {
     const oneGuestbook = await Comment.findById(id);
     if (!oneGuestbook) {
@@ -55,6 +57,7 @@ export const getGuestbooks = async (id?: string, parentId?: string) => {
       parentId,
       // $and: [{ parentId: { $ne: null } }, { parentId: parentId }],
     });
+    console.log(targetGuestbooks);
     if (targetGuestbooks.length < 1) {
       throw new CustomError("NotFoundError", "result not found in database");
     }

@@ -33,48 +33,54 @@ export const createPost = async (
   }
 };
 
+export const getPostSummary = async (id: string) => {
+  const targetPost = await getPosts(id);
+
+  const openai = new OpenAI({
+    organization: "org-hJLENY4679XPtJ4fnRyJBXEi",
+    apiKey: process.env.OPENAI_API_KEY,
+  });
+
+  let summary = {};
+  const gptPrompt = "Summary above following content with 3 bulletin points:";
+
+  if (!!targetPost.contentEng) {
+    let aiResEng = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo-16k",
+      messages: [
+        {
+          role: "user",
+          content: `${gptPrompt} in English: ${targetPost.contentEng}`,
+        },
+      ],
+      max_tokens: 2048,
+    });
+    summary["engVersion"] = aiResEng.choices;
+  }
+  if (!!targetPost.contentKor) {
+    let aiResKor = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo-16k",
+      messages: [
+        {
+          role: "user",
+          content: `${gptPrompt} in Korean: ${targetPost.contentKor}`,
+        },
+      ],
+      max_tokens: 2048,
+    });
+    summary["korVersion"] = aiResKor.choices;
+  }
+  return summary;
+};
+
 export const getPosts = async (id?: string, categoryId?: string) => {
   try {
     if (!!id) {
-      const openai = new OpenAI({
-        organization: "org-hJLENY4679XPtJ4fnRyJBXEi",
-        apiKey: process.env.OPENAI_API_KEY,
-      });
-
       const onePost = await Post.findById(id);
       if (!onePost) {
         throw new CustomError("NotFoundError", "result not found in database");
       }
-      let summary = {};
-      if (!!onePost.contentEng) {
-        //TODO: may be need to be in different controller due to response time on chat AI
-        let aiResEng = await openai.chat.completions.create({
-          model: "gpt-3.5-turbo-16k",
-          messages: [
-            {
-              role: "user",
-              content: `Summarize following content: ${onePost.contentEng}`,
-            },
-          ],
-          max_tokens: 2048,
-        });
-        summary["engVersion"] = aiResEng.choices;
-      }
-
-      if (!!onePost.contentKor) {
-        let aiResKor = await openai.chat.completions.create({
-          model: "gpt-3.5-turbo-16k",
-          messages: [
-            {
-              role: "user",
-              content: `Summarize following content: ${onePost.contentKor}`,
-            },
-          ],
-          max_tokens: 2048,
-        });
-        summary["korVersion"] = aiResKor.choices;
-      }
-      return { onePost, summary };
+      return onePost;
     } else if (!!categoryId) {
       const targetPosts = await Post.find({ categoryId });
       if (targetPosts.length < 1) {
